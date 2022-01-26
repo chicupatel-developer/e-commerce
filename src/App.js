@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Products, Navbar, Cart } from './components';
+import { Products, Navbar, Cart, Checkout  } from './components';
 import { commerce } from './lib/commerce';
 
 import { CssBaseline } from '@material-ui/core';
@@ -10,6 +10,8 @@ const App = () => {
 
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
+    const [order, setOrder] = useState({});
+    const [errorMessage, setErrorMessage] = useState('');
 
     // get products from api
     const fetchProducts = async () => {
@@ -28,12 +30,42 @@ const App = () => {
         setCart(item.cart);
     }
 
-    // when user update qty of item in cart
+    // when user update qty(+1/-1) of item in cart
     const handleUpdateCartQty = async (lineItemId, quantity) => {
         const response = await commerce.cart.update(lineItemId, { quantity });
         setCart(response.cart);
     };
 
+    // when user remove item(0) from cart
+    const handleRemoveFromCart = async (lineItemId) => {
+        const response = await commerce.cart.remove(lineItemId);
+        setCart(response.cart);
+    };
+
+    // when user empty the whole cart
+    const handleEmptyCart = async () => {
+        const response = await commerce.cart.empty();
+        setCart(response.cart);
+    };
+
+    // refresh cart
+    const refreshCart = async () => {
+        const newCart = await commerce.cart.refresh();
+        setCart(newCart);
+    };
+
+    // check out
+    const handleCaptureCheckout = async (checkoutTokenId, newOrder) => {
+        try {
+        const incomingOrder = await commerce.checkout.capture(checkoutTokenId, newOrder);
+        setOrder(incomingOrder);
+        refreshCart();
+        }
+        catch (error) {
+            setErrorMessage(error.data.error.message);
+        }
+    };
+    
     useEffect(() => {
         fetchProducts();
         fetchCart();
@@ -62,7 +94,19 @@ const App = () => {
                           <Cart 
                               cart={cart}
                               onUpdateCartQty={handleUpdateCartQty}
+                              onRemoveFromCart={handleRemoveFromCart}
+                              onEmptyCart={handleEmptyCart}
                           />
+                      }
+                  />
+                  <Route
+                      path='/checkout'
+                      element={
+                          <Checkout
+                              cart={cart}
+                              order={order}
+                              onCaptureCheckout={handleCaptureCheckout}
+                              error={errorMessage} />
                       }
                   />
                 </Routes>                      
