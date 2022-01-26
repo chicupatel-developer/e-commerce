@@ -6,8 +6,10 @@ import { Link, useLocation } from 'react-router-dom';
 import logo from '../../assets/commerce.png';
 import useStyles from './styles';
 
-const Navbar = () => {
+const Navbar = ({ totalItems} ) => {
     const classes = useStyles();
+    const location = useLocation();
+
     return (
         <>
             <AppBar position="fixed" className={classes.appBar} color='inherit'>
@@ -19,8 +21,8 @@ const Navbar = () => {
                     <div className={classes.grow} />
 
                     <div className={classes.button}>
-                        <IconButton aria-label="Show cart items" color="inherit">
-                            <Badge badgeContent={2} color="secondary">
+                        <IconButton component={Link} to="/cart" aria-label="Show cart items" color="inherit">
+                            <Badge badgeContent={totalItems} color="secondary">
                                 <ShoppingCart />
                             </Badge>
                         </IconButton>
