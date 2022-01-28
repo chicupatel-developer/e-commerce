@@ -23,7 +23,6 @@ const Checkout = ({cart}) => {
 
         }
     };
-
     useEffect(() => {
         if (cart.id) {
             generateToken();
@@ -32,7 +31,7 @@ const Checkout = ({cart}) => {
 
     
     const Form = () => (activeStep === 0
-        ? <AddressForm checkoutToken={checkoutToken} />
+        ? <AddressForm checkoutToken={checkoutToken} test={test} />
         : <PaymentForm />
     )
        
@@ -42,6 +41,9 @@ const Checkout = ({cart}) => {
         </div>
     )
 
+    const test = (data) => {
+        console.log(data);
+    };
 
     return (
       <>

@@ -71,8 +71,8 @@ const App = () => {
         fetchCart();
     }, []);
 
-    console.log(products);
-    console.log(cart);
+    // console.log(products);
+    // console.log(cart);
   return (
       <Router>
           <div style={{ display: 'flex' }}>
@@ -107,6 +107,7 @@ const App = () => {
                           />
                       }
                   />
+               
                 </Routes>                      
           </div>
       </Router>
