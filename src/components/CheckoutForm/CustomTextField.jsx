@@ -19,9 +19,7 @@ function FormInput({ name, label, required }) {
                         error={isError}
                     />
                 )}
-            />
-         
-         
+            />     
         </Grid>
     );
 }
