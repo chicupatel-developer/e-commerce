@@ -5,9 +5,11 @@ import { Link } from 'react-router-dom';
 import { commerce } from '../../lib/commerce';
 import FormInput from './CustomTextField';
 
+import useStyles from './styles';
 const AddressForm = ({ checkoutToken, test }) => {
-    const methods = useForm();
 
+    const classes = useStyles();
+    
     const [shippingCountries, setShippingCountries] = useState([]);
     const [shippingCountry, setShippingCountry] = useState('');   
     const [shippingSubdivisions, setShippingSubdivisions] = useState([]);
@@ -15,7 +17,13 @@ const AddressForm = ({ checkoutToken, test }) => {
     const [shippingOptions, setShippingOptions] = useState([]);
     const [shippingOption, setShippingOption] = useState('');
 
-    const [firstName, setFirstName] = useState([]);
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [address1, setAddress1] = useState('');
+    const [email, setEmail] = useState('');
+    const [city, setCity] = useState('');
+    const [zip, setZip] = useState('');
+    const [isError, setIsError] = useState({ firstName: undefined, lastName: undefined, city: undefined, zip: undefined, email: undefined, address1: undefined});
 
     const countries = Object.entries(shippingCountries).map(([code, name]) => ({ id: code, label: name }));
     
@@ -50,13 +58,101 @@ const AddressForm = ({ checkoutToken, test }) => {
         if (shippingSubdivision) fetchShippingOptions(checkoutToken.id, shippingCountry, shippingSubdivision);
     }, [shippingSubdivision]);
 
-  
-    const handleFirstName = (event) => {
-        setFirstName(event.target.value);
-    };
+
+    const handleFormControlChangeEvent = (event) => {
+        if (event.target.name === 'firstName') {
+            setFirstName(event.target.value);
+            if (event.target.value === '') {
+                setIsError({
+                    ...isError, firstName: "First Name Is Required!"
+                });
+            }
+            else {
+                setIsError({
+                    ...isError, firstName: ''
+                });
+            }
+        }
+        else if (event.target.name === 'lastName') {
+            setLastName(event.target.value);
+            if (event.target.value === '') {
+                setIsError({
+                    ...isError, lastName: "Last Name Is Required!"
+                });
+            }
+            else {
+                setIsError({
+                    ...isError, lastName: ''
+                });
+            }
+        }
+        else if (event.target.name === 'address1') {
+            setAddress1(event.target.value);
+            if (event.target.value === '') {
+                setIsError({
+                    ...isError, address1: "Address Is Required!"
+                });
+            }
+            else {
+                setIsError({
+                    ...isError, address1: ''
+                });
+            }
+        }
+        else if (event.target.name === 'city') {
+            setCity(event.target.value);
+            if (event.target.value === '') {
+                setIsError({
+                    ...isError, city: "City Is Required!"
+                });
+            }
+            else {
+                setIsError({
+                    ...isError, city: ''
+                });
+            }
+        }
+        else if (event.target.name === 'zip') {
+            setZip(event.target.value);
+            if (event.target.value === '') {
+                setIsError({
+                    ...isError, zip: "Zip Is Required!"
+                });
+            }
+            else {
+                setIsError({
+                    ...isError, zip: ''
+                });
+            }
+        }
+        else if (event.target.name === 'email') {
+            setEmail(event.target.value);
+            if (event.target.value === '') {
+                setIsError({
+                    ...isError, email: "Email Is Required!"
+                });
+            }
+            else {
+                setIsError({
+                    ...isError, email: ''
+                });
+            }
+        }
+    }  
+    
     const handleSubmit = (evt) => {
         evt.preventDefault();        
         console.log('submit!');
+
+        let shippingData = {
+            firstName: firstName,
+            lastName: lastName,
+            address1: address1,
+            email: email,
+            city: city,
+            zip: zip
+        };
+        test(shippingData);
     }
     
     return (
@@ -67,13 +163,89 @@ const AddressForm = ({ checkoutToken, test }) => {
                     <Grid container spacing={3} >
                     
                         <Grid item xs={12} sm={6}>
-                            <TextField
+                        <TextField
+                                name='firstName'
                                 fullWidth
                                 label="First Name"
                                 value={firstName}
-                                onChange={e => handleFirstName(e)}
-                            />
+                                onChange={e => handleFormControlChangeEvent(e)}
+                        />
+                        <span className={classes.controlInvalid}>
+                            {isError.firstName && (
+                                <span className="invalid-feedback">{isError.firstName}</span>
+                            )}
+                        </span>
                         </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                name='lastName'
+                                fullWidth
+                                label="Last Name"
+                                value={lastName}
+                                onChange={e => handleFormControlChangeEvent(e)}
+                            />
+                        <span className={classes.controlInvalid}>
+                            {isError.lastName && (
+                                <span className="invalid-feedback">{isError.lastName}</span>
+                            )}
+                        </span>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                            name='address1'
+                                fullWidth
+                                label="Address"
+                                value={address1}
+                            onChange={e => handleFormControlChangeEvent(e)}
+                            />
+                        <span className={classes.controlInvalid}>
+                            {isError.address1 && (
+                                <span className="invalid-feedback">{isError.address1}</span>
+                            )}
+                        </span>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            name='email'
+                            fullWidth
+                            label="Email"
+                            value={email}
+                            onChange={e => handleFormControlChangeEvent(e)}
+                        />
+                        <span className={classes.controlInvalid}>
+                            {isError.email && (
+                                <span className="invalid-feedback">{isError.email}</span>
+                            )}
+                        </span>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            name='city'
+                            fullWidth
+                            label="City"
+                            value={city}
+                            onChange={e => handleFormControlChangeEvent(e)}
+                        />
+                        <span className={classes.controlInvalid}>
+                            {isError.city && (
+                                <span className="invalid-feedback">{isError.city}</span>
+                            )}
+                        </span>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                        name='zip'
+                            fullWidth
+                            label="Zip"
+                            value={zip}
+                            onChange={e => handleFormControlChangeEvent(e)}
+                        />
+                        <span className={classes.controlInvalid}>
+                            {isError.zip && (
+                                <span className="invalid-feedback">{isError.zip}</span>
+                            )}
+                        </span>
+                    </Grid>
                       
                    
                       

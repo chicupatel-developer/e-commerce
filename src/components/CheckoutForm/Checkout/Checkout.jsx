@@ -41,10 +41,14 @@ const Checkout = ({cart}) => {
         </div>
     )
 
-    const test = (data) => {
-        console.log(data);
+    const test = (shippingData) => {
+        console.log(shippingData);
+        nextStep();
     };
 
+    const nextStep = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    const backStep = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  
     return (
       <>
           <div className={classes.toolbar} />
