@@ -140,9 +140,33 @@ const AddressForm = ({ checkoutToken, test }) => {
         }
     }  
     
+    const formValid = (isError) => {
+        let isValid = false;
+        var BreakException = {};
+        try {
+            Object.values(isError).forEach(val => {
+                console.log('checking... ' + val);
+                if (val.length > 0) {
+                    isValid = false
+                    throw BreakException;
+                } else {
+                    isValid = true
+                }
+            });
+        } catch (e) {
+            return isValid;
+        }
+        return isValid;
+    };
     const handleSubmit = (evt) => {
         evt.preventDefault();        
         console.log('submit!');
+
+        if (formValid(isError)) {
+        } else {
+            console.log("Form is invalid!");
+            return;
+        }
 
         let shippingData = {
             firstName: firstName,
