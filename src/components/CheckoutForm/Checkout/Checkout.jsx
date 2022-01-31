@@ -7,12 +7,13 @@ import { commerce } from '../../../lib/commerce';
 
 const steps = ['Shipping address', 'Payement details'];
 
-const Checkout = ({cart}) => {
+const Checkout = ({ cart, onCaptureCheckout, order, error}) => {
 
     const classes = useStyles();
 
     const [activeStep, setActiveStep] = useState(0);
     const [checkoutToken, setCheckoutToken] = useState(null);
+    const [shippingData, setShippingData] = useState({});
 
     const generateToken = async () => {
         try {
@@ -31,8 +32,8 @@ const Checkout = ({cart}) => {
 
     
     const Form = () => (activeStep === 0
-        ? <AddressForm checkoutToken={checkoutToken} test={test} />
-        : <PaymentForm />
+        ? <AddressForm nextStep={nextStep} setShippingData={setShippingData} checkoutToken={checkoutToken} test={test} />
+        : <PaymentForm shippingData={shippingData} checkoutToken={checkoutToken} nextStep={nextStep} backStep={backStep} onCaptureCheckout={onCaptureCheckout} />
     )
        
     const Confirmation = () => (
@@ -43,6 +44,7 @@ const Checkout = ({cart}) => {
 
     const test = (shippingData) => {
         console.log(shippingData);
+        setShippingData(shippingData);
         nextStep();
     };
 

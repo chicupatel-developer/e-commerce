@@ -174,7 +174,10 @@ const AddressForm = ({ checkoutToken, test }) => {
             address1: address1,
             email: email,
             city: city,
-            zip: zip
+            zip: zip,
+            shippingCountry: shippingCountry,
+            shippingSubdivision: shippingSubdivision,
+            shippingOption: shippingOption
         };
         test(shippingData);
     }
