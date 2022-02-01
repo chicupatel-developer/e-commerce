@@ -6,6 +6,9 @@ import { commerce } from './lib/commerce';
 import { CssBaseline } from '@material-ui/core';
 import { BrowserRouter as Router, Routes , Route } from 'react-router-dom';
 
+import CommerceJsWebApi from './services/commerceJs-webApi';
+import commerceJsWebApi from './services/commerceJs-webApi';
+
 const App = () => {
 
     const [products, setProducts] = useState([]);
@@ -72,7 +75,38 @@ const App = () => {
             console.log(checkoutTokenId);
             console.log(newOrder);
 
-            
+            let shoppingData = {
+                shopperInfo: {
+                    firstName: 'haha',
+                    lastName: 'haha',
+                    email: 'haha@haha.com'
+                }
+            };
+            commerceJsWebApi.getShoppingConfirmation(shoppingData)
+                .then(response => {                  
+                    console.log(response);
+
+                    // this will auto-open-new window in browser
+                    // and display file content
+                    const type = response.headers['content-type'];
+                    const blob = new Blob([response.data], { type: type, encoding: 'UTF-8' });
+                    const url = window.URL.createObjectURL(blob);
+                    window.open(url);
+
+
+                    // this will auto-download file in browser
+                    /*
+                    const type = response.headers['content-type'];
+                    const blob = new Blob([response.data], { type: type, encoding: 'UTF-8' });
+                    const link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = '__confirmation__.pdf';
+                    link.click();
+                    */
+                })
+                .catch(e => {
+                    console.log(e);
+                });
             // const incomingOrder = await commerce.checkout.capture(checkoutTokenId, newOrder);
             // console.log(incomingOrder);
             
