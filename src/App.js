@@ -75,13 +75,44 @@ const App = () => {
             console.log(checkoutTokenId);
             console.log(newOrder);
 
+            // prepare shoppingData object for api call
             let shoppingData = {
                 shopperInfo: {
-                    firstName: 'haha',
-                    lastName: 'haha',
-                    email: 'haha@haha.com'
-                }
+                    firstName: newOrder.customer.firstname,
+                    lastName: newOrder.customer.lastname,
+                    email: newOrder.customer.email
+                },
+                shippingData: {
+                    shippingMethod: newOrder.fulfillment.shipping_method,
+                    country: newOrder.shipping.country,
+                    state: newOrder.shipping.county_state,
+                    shippingType: newOrder.shipping.name,
+                    postalZipCode: newOrder.shipping.postal_zip_code,
+                    street: newOrder.shipping.street,
+                    city: newOrder.shipping.town_city
+                },
+                paymentData: {
+                    gateway: newOrder.payment.gateway,
+                    paymentMethodId: newOrder.payment.stripe.payment_method_id
+                },
+                lineItems : []
             };
+            let lineItems = [];
+            newOrder.line_items.forEach(function (item) {
+                var lineItem = {
+                    itemId: item.id,
+                    itemName: item.name,
+                    qty: (item.quantity).toString(),
+                    itemPrice: item.price.formatted_with_symbol,
+                    lineItemPrice: item.line_total.formatted_with_symbol
+                };
+                lineItems.push(lineItem);
+            });
+            shoppingData.lineItems = lineItems.slice();
+
+            console.log(shoppingData);
+
+            
             commerceJsWebApi.getShoppingConfirmation(shoppingData)
                 .then(response => {                  
                     console.log(response);
@@ -107,6 +138,7 @@ const App = () => {
                 .catch(e => {
                     console.log(e);
                 });
+                
             // const incomingOrder = await commerce.checkout.capture(checkoutTokenId, newOrder);
             // console.log(incomingOrder);
             
@@ -114,7 +146,8 @@ const App = () => {
             // refreshCart();
         }
         catch (error) {
-            setErrorMessage(error.data.error.message);
+            // setErrorMessage(error.data.error.message);
+            console.log(error);
         }
     };
     
