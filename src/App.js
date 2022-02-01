@@ -70,7 +70,7 @@ const App = () => {
     // payment.gateway: The selected payment.gateway is invalid.
     // create web api project for sending email confirmation with order details
     // to shopper and finally reset(refresh) cart object on react-client side 
-    const handleCaptureCheckout = async (checkoutTokenId, newOrder) => {
+    const handleCaptureCheckout = async (checkoutTokenId, newOrder, grandTotal) => {
         try {
             console.log(checkoutTokenId);
             console.log(newOrder);
@@ -80,7 +80,7 @@ const App = () => {
                 shopperInfo: {
                     firstName: newOrder.customer.firstname,
                     lastName: newOrder.customer.lastname,
-                    email: newOrder.customer.email
+                    email: newOrder.customer.email                    
                 },
                 shippingData: {
                     shippingMethod: newOrder.fulfillment.shipping_method,
@@ -95,7 +95,8 @@ const App = () => {
                     gateway: newOrder.payment.gateway,
                     paymentMethodId: newOrder.payment.stripe.payment_method_id
                 },
-                lineItems : []
+                lineItems: [],
+                grandTotal: grandTotal
             };
             let lineItems = [];
             newOrder.line_items.forEach(function (item) {
