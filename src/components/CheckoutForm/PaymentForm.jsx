@@ -6,7 +6,7 @@ import { loadStripe } from '@stripe/stripe-js';
 
 import Review from './Review';
 
-const stripePromise = loadStripe('pk_test_51KO6yvAvqXZORFeSY8d7KJyOsCVdIIIgNMrLgBgxW1UWaRDM9BoDPhkqdXSMzLOktWMXQTFeqfETv9NvEIsks1eH009CkGBfjd');
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData, onCaptureCheckout }) => {
 

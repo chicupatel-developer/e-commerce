@@ -55,14 +55,26 @@ const App = () => {
     };
 
     // check out
+    /*
+        chkt_Op1YoVxeL6lXLv
+        {line_items: Array(1), customer: {…}, shipping: {…}, fulfillment: {…}, payment: {…}}
+        POST https://api.chec.io/v1/checkouts/chkt_Op1YoVxeL6lXLv 422
+        Validation/missing fields
+        payment.gateway: The selected payment.gateway is invalid.
+    */
+    // stripe and commerce.js is not connected
+    // so, getting following error,,, 
+    // payment.gateway: The selected payment.gateway is invalid.
+    // create web api project for sending email confirmation with order details
+    // to shopper and finally reset(refresh) cart object on react-client side 
     const handleCaptureCheckout = async (checkoutTokenId, newOrder) => {
         try {
             console.log(checkoutTokenId);
             console.log(newOrder);
 
             
-            const incomingOrder = await commerce.checkout.capture(checkoutTokenId, newOrder);
-            console.log(incomingOrder);
+            // const incomingOrder = await commerce.checkout.capture(checkoutTokenId, newOrder);
+            // console.log(incomingOrder);
             
             // setOrder(incomingOrder);
             // refreshCart();
