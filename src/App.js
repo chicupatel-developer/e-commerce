@@ -6,9 +6,11 @@ import { commerce } from './lib/commerce';
 import { CssBaseline } from '@material-ui/core';
 import { BrowserRouter as Router, Routes , Route } from 'react-router-dom';
 
-import commerceJsWebApi from './services/CommerceJsWebApiService';
+import commerceJsWebApi from './services/commerceJs-webApi';
+
 
 const App = () => {
+
 
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
@@ -52,8 +54,8 @@ const App = () => {
 
     // refresh cart
     const refreshCart = async () => {
-        const newCart = await commerce.cart.refresh();   
-        setCart(newCart);
+        const emptyCart = await commerce.cart.refresh();   
+        setCart(emptyCart);
     };
 
     // check out
@@ -135,6 +137,7 @@ const App = () => {
                     link.click();
                     */
                     
+                    refreshCart();
                 })
                 .catch(e => {
                     console.log(e);

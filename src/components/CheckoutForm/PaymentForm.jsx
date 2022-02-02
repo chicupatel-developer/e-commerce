@@ -6,9 +6,15 @@ import { loadStripe } from '@stripe/stripe-js';
 
 import Review from './Review';
 
+import { useNavigate } from "react-router-dom";
+
+
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData, onCaptureCheckout }) => {
+
+
+    const navigate = useNavigate();
 
     
     const handleSubmit = async (event, elements, stripe) => {
@@ -51,6 +57,7 @@ const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData, onCaptur
 
             onCaptureCheckout(checkoutToken.id, orderData, checkoutToken.live.subtotal.formatted_with_symbol);
 
+            navigate("/");
 
             nextStep();
         }
