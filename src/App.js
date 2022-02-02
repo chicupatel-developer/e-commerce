@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect  } from 'react';
 
 import { Products, Navbar, Cart, Checkout  } from './components';
 import { commerce } from './lib/commerce';
@@ -6,8 +6,7 @@ import { commerce } from './lib/commerce';
 import { CssBaseline } from '@material-ui/core';
 import { BrowserRouter as Router, Routes , Route } from 'react-router-dom';
 
-import CommerceJsWebApi from './services/commerceJs-webApi';
-import commerceJsWebApi from './services/commerceJs-webApi';
+import commerceJsWebApi from './services/CommerceJsWebApiService';
 
 const App = () => {
 
@@ -53,7 +52,7 @@ const App = () => {
 
     // refresh cart
     const refreshCart = async () => {
-        const newCart = await commerce.cart.refresh();
+        const newCart = await commerce.cart.refresh();   
         setCart(newCart);
     };
 
@@ -135,6 +134,7 @@ const App = () => {
                     link.download = '__confirmation__.pdf';
                     link.click();
                     */
+                    
                 })
                 .catch(e => {
                     console.log(e);

@@ -10,6 +10,7 @@ const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData, onCaptureCheckout }) => {
 
+    
     const handleSubmit = async (event, elements, stripe) => {
         event.preventDefault();
 
@@ -49,6 +50,7 @@ const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData, onCaptur
             };
 
             onCaptureCheckout(checkoutToken.id, orderData, checkoutToken.live.subtotal.formatted_with_symbol);
+
 
             nextStep();
         }
