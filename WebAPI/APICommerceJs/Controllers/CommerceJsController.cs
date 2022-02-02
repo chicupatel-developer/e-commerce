@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace api_job_apps.Controllers
+namespace APICommerceJs.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
