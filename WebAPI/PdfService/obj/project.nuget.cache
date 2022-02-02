@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "dgSpecHash": "lil1rqNwJ8OQXQNNZtnOBpR9NGexJlsLqVl+Us6vJKz1GtbbtPLmbJBcSYgpOSKiD+PR9NPcxbwCcAZAVMg6tw==",
+  "success": true,
+  "projectFilePath": "C:\\e-commerce\\WebAPI\\PdfService\\PdfService.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ankit_2\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.0\\microsoft.bcl.asyncinterfaces.1.1.0.nupkg.sha512",
+    "C:\\Users\\ankit_2\\.nuget\\packages\\microsoft.netcore.platforms\\2.1.2\\microsoft.netcore.platforms.2.1.2.nupkg.sha512",
+    "C:\\Users\\ankit_2\\.nuget\\packages\\microsoft.win32.systemevents\\4.5.0\\microsoft.win32.systemevents.4.5.0.nupkg.sha512",
+    "C:\\Users\\ankit_2\\.nuget\\packages\\newtonsoft.json\\12.0.1\\newtonsoft.json.12.0.1.nupkg.sha512",
+    "C:\\Users\\ankit_2\\.nuget\\packages\\select.htmltopdf.netcore\\21.2.0\\select.htmltopdf.netcore.21.2.0.nupkg.sha512",
+    "C:\\Users\\ankit_2\\.nuget\\packages\\system.buffers\\4.5.0\\system.buffers.4.5.0.nupkg.sha512",
+    "C:\\Users\\ankit_2\\.nuget\\packages\\system.drawing.common\\4.5.1\\system.drawing.common.4.5.1.nupkg.sha512",
+    "C:\\Users\\ankit_2\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Users\\ankit_2\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.2\\system.runtime.compilerservices.unsafe.4.5.2.nupkg.sha512",
+    "C:\\Users\\ankit_2\\.nuget\\packages\\system.security.principal.windows\\4.5.1\\system.security.principal.windows.4.5.1.nupkg.sha512",
+    "C:\\Users\\ankit_2\\.nuget\\packages\\system.text.encoding.codepages\\4.5.1\\system.text.encoding.codepages.4.5.1.nupkg.sha512",
+    "C:\\Users\\ankit_2\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.2\\system.threading.tasks.extensions.4.5.2.nupkg.sha512"
+  ],
+  "logs": []
+}
