@@ -9,9 +9,9 @@ import useStyles from './styles';
 const AddressForm = ({ checkoutToken, test }) => {
 
     const classes = useStyles();
-    
+
     const [shippingCountries, setShippingCountries] = useState([]);
-    const [shippingCountry, setShippingCountry] = useState('');   
+    const [shippingCountry, setShippingCountry] = useState('');
     const [shippingSubdivisions, setShippingSubdivisions] = useState([]);
     const [shippingSubdivision, setShippingSubdivision] = useState('');
     const [shippingOptions, setShippingOptions] = useState([]);
@@ -23,10 +23,10 @@ const AddressForm = ({ checkoutToken, test }) => {
     const [email, setEmail] = useState('');
     const [city, setCity] = useState('');
     const [zip, setZip] = useState('');
-    const [isError, setIsError] = useState({ firstName: undefined, lastName: undefined, city: undefined, zip: undefined, email: undefined, address1: undefined});
+    const [isError, setIsError] = useState({ firstName: undefined, lastName: undefined, city: undefined, zip: undefined, email: undefined, address1: undefined });
 
     const countries = Object.entries(shippingCountries).map(([code, name]) => ({ id: code, label: name }));
-    
+
     const fetchShippingCountries = async (checkoutTokenId) => {
         const { countries } = await commerce.services.localeListShippingCountries(checkoutTokenId);
 
@@ -35,7 +35,7 @@ const AddressForm = ({ checkoutToken, test }) => {
         setShippingCountry(Object.keys(countries)[0]);
     };
     useEffect(() => {
-        fetchShippingCountries(checkoutToken.id);
+        fetchShippingCountries(checkoutToken.id);   
     }, []);
 
     const fetchSubdivisions = async (countryCode) => {
@@ -138,8 +138,8 @@ const AddressForm = ({ checkoutToken, test }) => {
                 });
             }
         }
-    }  
-    
+    }
+
     const formValid = (isError) => {
         let isValid = false;
         var BreakException = {};
@@ -159,7 +159,7 @@ const AddressForm = ({ checkoutToken, test }) => {
         return isValid;
     };
     const handleSubmit = (evt) => {
-        evt.preventDefault();        
+        evt.preventDefault();
         console.log('submit!');
 
         if (formValid(isError)) {
@@ -181,50 +181,50 @@ const AddressForm = ({ checkoutToken, test }) => {
         };
         test(shippingData);
     }
-    
+
     return (
         <>
             <Typography variant="h6" gutterBottom>Shipping address</Typography>
-            
-                <form onSubmit={handleSubmit} noValidate>
-                    <Grid container spacing={3} >
-                    
-                        <Grid item xs={12} sm={6}>
+
+            <form onSubmit={handleSubmit} noValidate>
+                <Grid container spacing={3} >
+
+                    <Grid item xs={12} sm={6}>
                         <TextField
-                                name='firstName'
-                                fullWidth
-                                label="First Name"
-                                value={firstName}
-                                onChange={e => handleFormControlChangeEvent(e)}
+                            name='firstName'
+                            fullWidth
+                            label="First Name"
+                            value={firstName}
+                            onChange={e => handleFormControlChangeEvent(e)}
                         />
                         <span className={classes.controlInvalid}>
                             {isError.firstName && (
                                 <span className="invalid-feedback">{isError.firstName}</span>
                             )}
                         </span>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                name='lastName'
-                                fullWidth
-                                label="Last Name"
-                                value={lastName}
-                                onChange={e => handleFormControlChangeEvent(e)}
-                            />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            name='lastName'
+                            fullWidth
+                            label="Last Name"
+                            value={lastName}
+                            onChange={e => handleFormControlChangeEvent(e)}
+                        />
                         <span className={classes.controlInvalid}>
                             {isError.lastName && (
                                 <span className="invalid-feedback">{isError.lastName}</span>
                             )}
                         </span>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
                             name='address1'
-                                fullWidth
-                                label="Address"
-                                value={address1}
+                            fullWidth
+                            label="Address"
+                            value={address1}
                             onChange={e => handleFormControlChangeEvent(e)}
-                            />
+                        />
                         <span className={classes.controlInvalid}>
                             {isError.address1 && (
                                 <span className="invalid-feedback">{isError.address1}</span>
@@ -261,7 +261,7 @@ const AddressForm = ({ checkoutToken, test }) => {
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
-                        name='zip'
+                            name='zip'
                             fullWidth
                             label="Zip"
                             value={zip}
@@ -273,46 +273,46 @@ const AddressForm = ({ checkoutToken, test }) => {
                             )}
                         </span>
                     </Grid>
-                      
-                   
-                      
-                        <Grid item xs={12} sm={6}>
-                            <InputLabel>Shipping Country</InputLabel>
-                            <Select value={shippingCountry} fullWidth onChange={(e) => setShippingCountry(e.target.value)}>
-                                {countries.map((item) => (
-                                    <MenuItem key={item.id} value={item.id}>
-                                        {item.label}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <InputLabel>Shipping Subdivision</InputLabel>
-                            <Select value={shippingSubdivision} fullWidth onChange={(e) => setShippingSubdivision(e.target.value)}>
-                                {Object.entries(shippingSubdivisions).map(([code, name]) => ({ id: code, label: name })).map((item) => (
-                                    <MenuItem key={item.id} value={item.id}>
-                                        {item.label}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <InputLabel>Shipping Options</InputLabel>
-                            <Select value={shippingOption} fullWidth onChange={(e) => setShippingOption(e.target.value)}>
-                                {shippingOptions.map((sO) => ({ id: sO.id, label: `${sO.description} - (${sO.price.formatted_with_symbol})` })).map((item) => (
-                                    <MenuItem key={item.id} value={item.id}>
-                                        {item.label}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </Grid>
-                    </Grid>  
-                    <br />
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Button component={Link} variant="outlined" to="/cart">Back to Cart</Button>
-                        <Button type="submit" variant="contained" color="primary">Next</Button>
-                    </div>
-                </form>
+
+
+
+                    <Grid item xs={12} sm={6}>
+                        <InputLabel>Shipping Country</InputLabel>
+                        <Select value={shippingCountry} fullWidth onChange={(e) => setShippingCountry(e.target.value)}>
+                            {countries.map((item) => (
+                                <MenuItem key={item.id} value={item.id}>
+                                    {item.label}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <InputLabel>Shipping Subdivision</InputLabel>
+                        <Select value={shippingSubdivision} fullWidth onChange={(e) => setShippingSubdivision(e.target.value)}>
+                            {Object.entries(shippingSubdivisions).map(([code, name]) => ({ id: code, label: name })).map((item) => (
+                                <MenuItem key={item.id} value={item.id}>
+                                    {item.label}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <InputLabel>Shipping Options</InputLabel>
+                        <Select value={shippingOption} fullWidth onChange={(e) => setShippingOption(e.target.value)}>
+                            {shippingOptions.map((sO) => ({ id: sO.id, label: `${sO.description} - (${sO.price.formatted_with_symbol})` })).map((item) => (
+                                <MenuItem key={item.id} value={item.id}>
+                                    {item.label}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </Grid>
+                </Grid>
+                <br />
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Button component={Link} variant="outlined" to="/cart">Back to Cart</Button>
+                    <Button type="submit" variant="contained" color="primary">Next</Button>
+                </div>
+            </form>
         </>
     )
 }

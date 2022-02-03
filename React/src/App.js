@@ -1,10 +1,10 @@
-import React, { useState, useEffect  } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { Products, Navbar, Cart, Checkout  } from './components';
+import { Products, Navbar, Cart, Checkout } from './components';
 import { commerce } from './lib/commerce';
 
 import { CssBaseline } from '@material-ui/core';
-import { BrowserRouter as Router, Routes , Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import commerceJsWebApi from './services/commerceJs-webApi';
 
@@ -19,7 +19,7 @@ const App = () => {
 
     // get products from api
     const fetchProducts = async () => {
-        const { data } = await commerce.products.list();        
+        const { data } = await commerce.products.list();
         setProducts(data);
     }
 
@@ -54,7 +54,7 @@ const App = () => {
 
     // refresh cart
     const refreshCart = async () => {
-        const emptyCart = await commerce.cart.refresh();   
+        const emptyCart = await commerce.cart.refresh();
         setCart(emptyCart);
     };
 
@@ -81,7 +81,7 @@ const App = () => {
                 shopperInfo: {
                     firstName: newOrder.customer.firstname,
                     lastName: newOrder.customer.lastname,
-                    email: newOrder.customer.email                    
+                    email: newOrder.customer.email
                 },
                 shippingData: {
                     shippingMethod: newOrder.fulfillment.shipping_method,
@@ -114,9 +114,9 @@ const App = () => {
 
             console.log(shoppingData);
 
-            
+
             commerceJsWebApi.getShoppingConfirmation(shoppingData)
-                .then(response => {                  
+                .then(response => {
                     console.log(response);
 
                     // this will auto-open-new window in browser
@@ -136,16 +136,16 @@ const App = () => {
                     link.download = '__confirmation__.pdf';
                     link.click();
                     */
-                    
+
                     refreshCart();
                 })
                 .catch(e => {
                     console.log(e);
                 });
-                
+
             // const incomingOrder = await commerce.checkout.capture(checkoutTokenId, newOrder);
             // console.log(incomingOrder);
-            
+
             // setOrder(incomingOrder);
             // refreshCart();
         }
@@ -154,7 +154,7 @@ const App = () => {
             console.log(error);
         }
     };
-    
+
     useEffect(() => {
         fetchProducts();
         fetchCart();
@@ -162,48 +162,48 @@ const App = () => {
 
     // console.log(products);
     // console.log(cart);
-  return (
-      <Router>
-          <div style={{ display: 'flex' }}>
-              <CssBaseline />
-              <Navbar totalItems={cart.total_items} />
+    return (
+        <Router>
+            <div style={{ display: 'flex' }}>
+                <CssBaseline />
+                <Navbar totalItems={cart.total_items} />
                 <Routes>
-                  <Route
-                      path='/'
-                      element={
-                          <Products
-                              products={products}
-                              onAddToCart={handleAddToCart}
-                          />
-                      }
-                  />
-                  <Route
-                      path='/cart'
-                      element={
-                          <Cart 
-                              cart={cart}
-                              onUpdateCartQty={handleUpdateCartQty}
-                              onRemoveFromCart={handleRemoveFromCart}
-                              onEmptyCart={handleEmptyCart}
-                          />
-                      }
-                  />
-                  <Route
-                      path='/checkout'
-                      element={
-                          <Checkout
-                              cart={cart}
-                              order={order}
-                              onCaptureCheckout={handleCaptureCheckout}
-                              error={errorMessage}
-                          />
-                      }
-                  />
-               
-                </Routes>                      
-          </div>
-      </Router>
-  )
+                    <Route
+                        path='/'
+                        element={
+                            <Products
+                                products={products}
+                                onAddToCart={handleAddToCart}
+                            />
+                        }
+                    />
+                    <Route
+                        path='/cart'
+                        element={
+                            <Cart
+                                cart={cart}
+                                onUpdateCartQty={handleUpdateCartQty}
+                                onRemoveFromCart={handleRemoveFromCart}
+                                onEmptyCart={handleEmptyCart}
+                            />
+                        }
+                    />
+                    <Route
+                        path='/checkout'
+                        element={
+                            <Checkout
+                                cart={cart}
+                                order={order}
+                                onCaptureCheckout={handleCaptureCheckout}
+                                error={errorMessage}
+                            />
+                        }
+                    />
+
+                </Routes>
+            </div>
+        </Router>
+    )
 }
 
 export default App
