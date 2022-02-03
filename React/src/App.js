@@ -114,7 +114,6 @@ const App = () => {
 
             console.log(shoppingData);
 
-
             commerceJsWebApi.getShoppingConfirmation(shoppingData)
                 .then(response => {
                     console.log(response);
@@ -138,6 +137,7 @@ const App = () => {
                     */
 
                     refreshCart();
+
                 })
                 .catch(e => {
                     console.log(e);
@@ -160,8 +160,7 @@ const App = () => {
         fetchCart();
     }, []);
 
-    // console.log(products);
-    // console.log(cart);
+  
     return (
         <Router>
             <div style={{ display: 'flex' }}>
@@ -199,7 +198,6 @@ const App = () => {
                             />
                         }
                     />
-
                 </Routes>
             </div>
         </Router>

@@ -23,7 +23,7 @@ const Navbar = ({ totalItems }) => {
 
                     <div>
                         <Button component={Link} variant="outlined" to="/">Products</Button>
-                    </div>
+                    </div>&nbsp;&nbsp;&nbsp;
                     <div className={classes.button}>
                         <IconButton component={Link} to="/cart" aria-label="Show cart items" color="inherit">
                             <Badge badgeContent={totalItems} color="secondary">
