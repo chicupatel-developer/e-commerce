@@ -19,16 +19,22 @@ const Confirmation = ({ checkoutTokenId, orderData, grandTotal ,onCaptureCheckou
     
   return (
       <>
-          <Typography variant="h3" gutterBottom style={{ margin: '20px 0' }}>
-              Order is Confirmed!!
+          <Typography variant="h5" gutterBottom style={{ margin: '20px 0' }}>
+              <b>{orderData.customer.firstname} {orderData.customer.lastname}</b>,
+              <br />
+              Order Amount of <b>{grandTotal} is Confirmed!!</b>
           </Typography>        
           <Divider />
-          <Typography variant="h4" gutterBottom style={{ margin: '20px 0' }}>
-              Checkout-Token Id : {checkoutTokenId}
+          <Typography variant="h6" gutterBottom style={{ margin: '20px 0' }}>                
+              Please note your Payment - Confimration :
+              <br />
+              <b>{orderData.payment.stripe.payment_method_id}</b>
           </Typography>
           <Divider />
-          <Typography variant="h4" gutterBottom style={{ margin: '20px 0' }}>
-              Total Purchased : {grandTotal}
+          <Typography variant="h6" gutterBottom style={{ margin: '20px 0' }}>
+              Also, your Order - Confirmation is sent to your email
+              <br />
+              [<b> {orderData.customer.email} </b>]
           </Typography>
       </>
   )
