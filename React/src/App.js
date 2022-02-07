@@ -167,6 +167,7 @@ const App = () => {
                 <CssBaseline />
                 <Navbar totalItems={cart.total_items} />
                 <Routes>
+
                     <Route
                         path='/'
                         element={
@@ -175,7 +176,7 @@ const App = () => {
                                 onAddToCart={handleAddToCart}
                             />
                         }
-                    />
+                    />                
                     <Route
                         path='/cart'
                         element={
@@ -202,10 +203,11 @@ const App = () => {
                     <Route
                         path='*'
                         element={
-                            <NotFound                                
-                            />
+                            <NotFound />
                         }
                     />
+
+                  
                 </Routes>
             </div>
         </Router>
